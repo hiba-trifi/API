@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.5.0/pagination.min.css" integrity="sha512-K1k7jSn9RDKEcn/ugqVVvWYu0bcS3q1w6m/5pQSnrj0bCfIqF6Wk49lkmckSb4wglvTP9V17LtS0q0XxYccXbg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+      <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.5.0/pagination.min.js" integrity="sha512-To905O3HNAHQVrN6xCie4dwDWV0OO3lwZl4rqtCvf+4lfkbx9XlyLmSiLosdi1WWBcW+VMy4Lmu/M10R+FsOPA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+       <title>Food Wiki</title>
+    </head>
+   
+
+<body style="background-color:#fff0c7">
+    <!-- Background Image -->
+    <div class="bg-image"
+        style="background-image: url('./tips-5.jpg'); height: 45vh;background-size: cover; background-position: center; filter: blur(2px); ">
+    </div>
+    <!-- Logo -->
+    <div class="d-lg-block text-light   mx-2">
+        <a class="navbar-brand position-absolute top-0 " href="#">
+            <img class="w-50 " src="Food Wiki.png">
+        </a>
+        <h2 class="text-light position-absolute mb-12  top-0 start-50 translate-middle-x mt-5 ">Welcome</h2>
+    </div> 
+
+    <div>
+        <div class="container mt-5" >
+          <div class="d-flex justify-content-evenly ">
+            <div class="input-group mb-3 mx-3">
+              <label class="input-group-text text-light" style="background-color :#544826;" for="areaSelection">Area:</label>
+              <select class="area form-select" id="areaSelection">
+                <option value="">---- All ----</option>
+              </select>
+            </div>
+  
+            <div class="input-group mb-3 mx-3">
+              <label class="input-group-text text-light" style="background-color :#544826;" for="categorySelection">Category:</label>
+              <select class="category form-select" id="categorySelection">
+                <option value="">---- All ----</option>
+              </select>
+            </div>
+            <button type="button"class="btn text-light w-25" onclick="filter()" style="height: 10%; background-color: #544826"> Filter</button>
+            <a href="./index1.html"><button type="button"class="btn btn-light mx-2"> Search  </button></a>
+        </div>
+  
+          <div class="container" id="selectResult">
+            <div class="row justify-content-center mt-4" id="selectedResult">
+            </div>
+            <div id="pagination-container" class="container d-flex justify-content-center mt-5">
+            </div>
+          </div>
+        </div>
+      </div>
+       <!-- All Cards And Modals -->
+       <div class="cardsAndModals d-flex justify-content-center  flex-wrap ">
+      </div>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Moon+Dance&family=Poppins:wght@600&family=Sofadi+One&display=swap');
+        * {
+            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+        h2{
+            font-size: 4rem;
+            font-family: 'Moon Dance', cursive;
+        }
+        .card-content img {
+            filter: grayscale(40%);
+            transform: scale(1);
+            transition: transform  1s ease;
+        }
+        .card-content img:hover{
+            filter: grayscale(0%);
+            transform: scale(1.2);
+            transition: transform 2s ease;
+        }
+        .card-content:hover {
+            transform: translate(0px, -10px);
+            transition: 0.3s;
+            box-shadow: 2px 2px 10px black;
+        }
+    </style>
+    <script src="./script2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"> </script>
+</body>
+
+</html>
