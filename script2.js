@@ -166,65 +166,7 @@ async function filter() {
     document.querySelector('.cardsAndModals').innerHTML = ""
     for (let i = 0; i < areaData.meals.length; i++) {
       creatCard(mergedMeals[i])}
-    // renderPaginatedMeals(6, mergedMeals);
   }
       console.log(document.querySelector('.cardsAndModals'))
 
 }
-
-
-// function renderPaginatedMeals(pageSize, dataSource) {
-//   $("#pagination-container").pagination({
-//     dataSource: dataSource,
-//     pageSize: pageSize,
-//     callback: function  (data) {
-//       // let html = "";
-//       for (let i = 0; i < data.length; i++) {
-//        creatCard(data.meals[i])
-//         // html +=
-//         //   "<div class='card text-center col-lg-3 col-md-5 cold-sm-10 m-1' id='cardsHere'   style='background-color: #807046'>" +
-//         //   "<img src=" +
-//         //   data[i].strMealThumb +
-//         //   " class='card-img img-fluid w-2 h-50'>" +
-//         //   "<div class='card-body'><h4 class='card-title text-light' style=';'>" +
-//         //   data[i].strMeal +
-//         //   "</h4>" +
-//         //   "<button type='button' class='btn  btn-light  mt-5 mx-3'  data-bs-toggle='modal' data-bs-target='#exampleModal'  id='exampleModal" +
-//         //   data[i].idMeal +
-//         //   "' onclick ='linkdetails(" +
-//         //   data[i].idMeal +
-//         //   ")' >Details</a>" +
-//         //   "</div></div>";
-//       }
-//       // if (html) {
-//       //   $("#selectedResult").html(html);
-//       // }
-//     },
-//   });
-// }
-
-   // if (selectedCategory === "" && selectedArea !== "") {
-  //   fetch(
-  //     `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedArea}`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((areaData) => {
-  //       document.querySelector('.cardsAndModals').innerHTML = ""
-  //       for (let i = 0; i < areaData.length; i++) {
-  //         creatCard(areaData.meals[i])}
-  //       // renderPaginatedMeals(6, areaData.meals);
-  //     });
-  // }
-  //  else if (selectedCategory !== "" && selectedArea === "") {
-  //   fetch(
-  //     `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((categoryData) => {
-  //       removeAllChildNodes(selectedResult);
-  //       for (let i = 0; i < categoryData.length; i++) {
-  //         creatCard(categoryData.meals[i])}
-  //       // renderPaginatedMeals(6, categoryData.meals);
-  //     });
-  // }
-  //  else
