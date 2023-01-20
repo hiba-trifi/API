@@ -1,3 +1,78 @@
+
+//  fill the select inputs
+window.onload = function open() {
+  // fill areas
+  fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`)
+    .then((response) => response.json())
+    .then((data) => {
+      // let areas;
+      data.meals.reverse().forEach((meal) => {
+        if (meal.strArea == "Moroccan") {
+          areas =
+            "<option class='AreaOptions' value='" +
+            meal.strArea +
+            "' selected>" +
+            meal.strArea +
+            "</option>";
+        } else {
+          areas =
+            "<option class='AreaOptions' value='" +
+            meal.strArea +
+            "'>" +
+            meal.strArea +
+            "</option>";
+        }
+        document
+          .getElementById("areaSelection")
+          .insertAdjacentHTML("afterbegin", areas);
+      });
+    });
+
+  // fill  categories
+  fetch(`https://www.themealdb.com/api/json/v1/1/list.php?c=list`)
+    .then((response) => response.json())
+    .then((data) => {
+      let category;
+      data.meals.reverse().forEach((meal) => {
+        if (meal.strCategory == "Lamb") {
+          category ="<option class='CategoryOptions' value='" +meal.strCategory +"' selected>" +meal.strCategory +"</option>";
+        } else {
+          category ="<option class='CategoryOptions' value='" +meal.strCategory +"'>" +meal.strCategory +"</option>";
+        }
+        document.getElementById("categorySelection").insertAdjacentHTML("afterbegin", category);
+      });
+    });
+};
+//Filter function
+async function filter() {
+
+  var categorySelection = document.getElementById("categorySelection");
+  var areaSelection = document.getElementById("areaSelection");
+  var selectedCategory = categorySelection.options[categorySelection.selectedIndex].value;
+  var selectedArea = areaSelection.options[areaSelection.selectedIndex].value;
+    if (selectedCategory !== "" && selectedArea !== "") {
+    const [a, b] = await Promise.all([
+      fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedArea}`
+      ),
+      fetch(
+        ` https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+      ),
+    ]);
+    const [areaData, categoryData] = await Promise.all([a.json(), b.json()]);
+    const categoryAndArea = [];
+    for (let i = 0; i < areaData.meals.length; i++) {
+      for (let j = 0; j < categoryData.meals.length; j++) {
+        if (areaData.meals[i].idMeal == categoryData.meals[j].idMeal) {
+          categoryAndArea.push(areaData.meals[i]);
+        }}
+    }
+    document.querySelector('.cardsAndModals').innerHTML = ""
+    for (let i = 0; i < categoryAndArea.length; i++) {
+      creatCard(categoryAndArea[i])}      
+  }
+}
+
 // CREATE HTML CARD 
 function creatCard(meal){
   ///////////////////CARD & MODAL   //////////////////////////////
@@ -20,6 +95,7 @@ function creatCard(meal){
   modalBtn.setAttribute('type','button');
   modalBtn.setAttribute('class','btn btn-outline-light  my-3 mx-3')
   modalBtn.setAttribute('data-bs-toggle','modal')
+  modalBtn.setAttribute('onclick','modalfill()')
   // modalBtn.setAttribute('data-bs-target','#staticBackdrop')
   modalBtn.style.color = "rgb(17, 17, 17)"
   modalBtn.innerHTML = "<strong>See Recipies</strong>"
@@ -83,90 +159,31 @@ modalContent.appendChild(modalFooter)
  vidLink.innerText ="Youtube Video"
  modalVid.appendChild(vidLink)
 
- ////////////////// FILL /////////////////////////
+ ////////////////// CARD FILL /////////////////////////
 h4.innerHTML= meal.strMeal;
 img.setAttribute('src', meal.strMealThumb)
 modalBtn.setAttribute('data-bs-target','#'+meal.idMeal)
- // Modal content fill 
- singleModal.setAttribute('id',meal.idMeal)
- modalTitle.innerHTML =  meal.strMeal ;
- modalImg.setAttribute('src', meal.strMealThumb)
- modalH3_1.innerHTML = "<strong> Category : </strong>" + meal.strCategory 
- modalH3_2.innerHTML = "<strong> Area : </strong>" + meal.strArea 
- modalInstruction.innerHTML = meal.strInstructions
- vidLink.setAttribute('href', meal.strYoutube)
-}
-//  fill the select inputs
-window.onload = function open() {
-  // fill areas
-  fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`)
-    .then((response) => response.json())
-    .then((data) => {
-      // let areas;
-      data.meals.reverse().forEach((meal) => {
-        if (meal.strArea == "Moroccan") {
-          areas =
-            "<option class='AreaOptions' value='" +
-            meal.strArea +
-            "' selected>" +
-            meal.strArea +
-            "</option>";
-        } else {
-          areas =
-            "<option class='AreaOptions' value='" +
-            meal.strArea +
-            "'>" +
-            meal.strArea +
-            "</option>";
-        }
-        document
-          .getElementById("areaSelection")
-          .insertAdjacentHTML("afterbegin", areas);
-      });
-    });
-
-  // fill  categories
-  fetch(`https://www.themealdb.com/api/json/v1/1/list.php?c=list`)
-    .then((response) => response.json())
-    .then((data) => {
-      let category;
-      data.meals.reverse().forEach((meal) => {
-        if (meal.strCategory == "Lamb") {
-          category ="<option class='CategoryOptions' value='" +meal.strCategory +"' selected>" +meal.strCategory +"</option>";
-        } else {
-          category ="<option class='CategoryOptions' value='" +meal.strCategory +"'>" +meal.strCategory +"</option>";
-        }
-        document.getElementById("categorySelection").insertAdjacentHTML("afterbegin", category);
-      });
-    });
-};
-//Filter function
-async function filter() {
-  var categorySelection = document.getElementById("categorySelection");
-  var areaSelection = document.getElementById("areaSelection");
-  var selectedCategory = categorySelection.options[categorySelection.selectedIndex].value;
-  var selectedArea = areaSelection.options[areaSelection.selectedIndex].value;
-    if (selectedCategory !== "" && selectedArea !== "") {
-    const [a, b] = await Promise.all([
-      fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedArea}`
-      ),
-      fetch(
-        ` https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
-      ),
-    ]);
-    const [areaData, categoryData] = await Promise.all([a.json(), b.json()]);
-    const mergedMeals = [];
-    for (let i = 0; i < areaData.meals.length; i++) {
-      for (let j = 0; j < categoryData.meals.length; j++) {
-        if (areaData.meals[i].idMeal == categoryData.meals[j].idMeal) {
-          mergedMeals.push(areaData.meals[i]);
-        }}
-    }
-    document.querySelector('.cardsAndModals').innerHTML = ""
-    for (let i = 0; i < areaData.meals.length; i++) {
-      creatCard(mergedMeals[i])}
-  }
-      console.log(document.querySelector('.cardsAndModals'))
+// Modal content fill 
+singleModal.setAttribute('id',meal.idMeal)
+modalTitle.innerHTML =  meal.strMeal ;
+modalImg.setAttribute('src', meal.strMealThumb)
+modalH3_1.innerHTML = "<strong> Category : </strong>" + meal.strCategory
+modalH3_2.innerHTML = "<strong> Area : </strong>" + meal.strArea 
+modalInstruction.innerHTML = meal.strInstructions
+vidLink.setAttribute('href', meal.strYoutube)
 
 }
+
+// fetch (`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+//   .then((response)=> response.json())
+//   .then((data)=>{modalfill(data)})
+// function modalfill(meal){
+// // Modal content fill 
+// //  singleModal.setAttribute('id',meal.idMeal)
+// //  modalTitle.innerHTML =  meal.strMeal ;
+// //  modalImg.setAttribute('src', meal.strMealThumb)
+//  modalH3_1.innerHTML = "<strong> Category : </strong>" + meal.strCategory 
+//  modalH3_2.innerHTML = "<strong> Area : </strong>" + meal.strArea 
+//  modalInstruction.innerHTML = meal.strInstructions
+//  vidLink.setAttribute('href', meal.strYoutube)
+// }
